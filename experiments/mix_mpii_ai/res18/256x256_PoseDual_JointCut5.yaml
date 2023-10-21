@@ -1,0 +1,117 @@
+GPUS: '0'
+DATA_DIR: '' 
+OUTPUT_DIR: 'output'
+LOG_DIR: 'log'
+
+UNSUP_TRANSFORM: True
+MASK_JOINT_NUM: 5
+
+WORKERS: 12           
+PRINT_FREQ: 100
+CUDNN:
+  BENCHMARK: True
+  DETERMINISTIC: False
+  ENABLED: True
+DATASET:
+  TRAIN_DATASET: mix_mpii_ai
+  TEST_DATASET: mpii
+  ROOT: '/mmpose/Semi_Human_Pose-master/data/dataset/'
+  TEST_SET: validation
+  TRAIN_SET: train
+  FLIP: true
+  ROT_FACTOR: 30
+  SCALE_FACTOR: 0.25
+MODEL:
+  NAME: pose_cons
+  PRETRAINED: /mmpose/Semi_Human_Pose-master/models/pytorch/imagenet/hrnet_w32-36af842e.pth
+  IMAGE_SIZE:
+  - 256
+  - 256
+  NUM_JOINTS: 24
+  EXTRA:
+    TARGET_TYPE: gaussian
+    HEATMAP_SIZE:
+    - 64
+    - 64
+    SIGMA: 2
+    PRETRAINED_LAYERS:
+    - 'conv1'
+    - 'bn1'
+    - 'conv2'
+    - 'bn2'
+    - 'layer1'
+    - 'transition1'
+    - 'stage2'
+    - 'transition2'
+    - 'stage3'
+    - 'transition3'
+    - 'stage4'
+    FINAL_CONV_KERNEL: 1
+    STAGE2:
+      NUM_MODULES: 1
+      NUM_BRANCHES: 2
+      NUM_BLOCKS:
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 32
+      - 64
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+    STAGE3:
+      NUM_MODULES: 4
+      NUM_BRANCHES: 3
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 32
+      - 64
+      - 128
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+    STAGE4:
+      NUM_MODULES: 3
+      NUM_BRANCHES: 4
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 32
+      - 64
+      - 128
+      - 256
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+LOSS:
+  USE_TARGET_WEIGHT: true
+TRAIN:
+  BATCH_SIZE: 32
+  SHUFFLE: true
+  BEGIN_EPOCH: 0
+  END_EPOCH: 100
+  RESUME: false
+  OPTIMIZER: adam
+  LR: 0.001
+  LR_FACTOR: 0.1
+  LR_STEP:
+  - 50
+  - 70
+  WD: 0.0001
+  GAMMA1: 0.99
+  GAMMA2: 0.0
+  MOMENTUM: 0.9
+  NESTEROV: false
+TEST:
+  BATCH_SIZE: 32
+  FLIP_TEST: false
+  MODEL_FILE: ''
+DEBUG:
+  DEBUG: false
+  SAVE_BATCH_IMAGES_GT: true
+  SAVE_BATCH_IMAGES_PRED: true
+  SAVE_HEATMAPS_GT: true
+  SAVE_HEATMAPS_PRED: true
