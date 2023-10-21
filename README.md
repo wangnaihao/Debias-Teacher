@@ -6,10 +6,10 @@ The code for cvpr-2024 pose work
 
 2.新版本会提示warning信息，根据warning信息cd到对应目录，将对应的两个参数从None 改为True
 
-3.从152的机器scp 代码到自己的机器上（pose_estimation和lib下的全部文件，experiments下的256x192_COCO1K_PoseCons.yaml 我新加了一些配置，另外，下图data中的文件也要scp到自己的机器上）
+3.从152的机器scp 代码到自己的机器上（pose_estimation和lib下的全部文件，experiments下的256x192_COCO1K_PoseCons.yaml，也可以在这里直接clone。 我新加了一些配置，另外，下图data中的文件也要scp到自己的机器上，新加了coco wild数据）
 
 
-![image-20231021204925580](https://github.com/wangnaihao/2D-Pose/assets/82216522/b6376c8f-e6b0-4426-b24d-c7a8970185c3)
+![image-20231021173708187](https://github.com/wangnaihao/2D-Pose/assets/82216522/7687ed60-6ede-49b0-8c34-3dcda19da4f0)
 
 
 ——————————————————————————————————————
